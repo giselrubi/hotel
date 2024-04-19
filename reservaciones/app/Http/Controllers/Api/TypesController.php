@@ -17,7 +17,7 @@ class TypesController extends Controller
         foreach($pleaces as $pleaces) {
             $objet = [
                 "id" => $pleaces->id,
-                "nombre" => $pleaces->name,
+                "name" => $pleaces->name,
                 
             ];
             array_push($list, $objet);
@@ -30,7 +30,7 @@ class TypesController extends Controller
          $pleaces = Types::where('id','=',$id)->first();
         $objet = [
             "id" => $pleaces->id,
-            "nombre" => $pleaces->name,
+            "name" => $pleaces->name,
             
         ];
         return response()->json($objet);
@@ -89,6 +89,29 @@ class TypesController extends Controller
                     "response"=>'Error:Element not found.',
                 ];
                 return response()->json($objet);
+            }
+        }
+        public function delete($id)
+        {
+            // Buscar el tipo por su ID
+            $types = Types::find($id);
+            
+            // Verificar si se encontró el tipo
+            if ($types) {
+                // Eliminar el tipo
+                $types->delete();
+                
+                // Responder con un mensaje de éxito
+                return response()->json([
+                    'message' => 'Tipo eliminado con éxito',
+                    'id' => $id
+                ]);
+            } else {
+                // Responder con un mensaje de error si no se encontró el tipo
+                return response()->json([
+                    'message' => 'Error: Tipo no encontrado',
+                    'id' => $id
+                ]);
             }
         }
 }     

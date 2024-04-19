@@ -64,10 +64,26 @@ class AuthController extends Controller {
 
     public function user(Request $request) {
 
-        $user->$request->user();
-        $profile = Profile::where('user_id', '=', $user->id);
+        $user=$request->user();
+        $profile = User::where('user_id', '=', $user->id);
 
         return response()->json([$user, $profile]);
+    }
+    public function update(Request $request,$id)
+    {
+        $data = $request->validate([
+            'name' => 'required|min:3|max:30',
+            'email' => 'required|email|min:3|max:30',
+        ]);
+
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->update($data);
+
+        return response()->json(['message' => 'User updated successfully', 'data' => $user]);
     }
 }
 

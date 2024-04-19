@@ -15,7 +15,8 @@ class ReservationsController extends Controller
     {
     
         $reservation = Reservations::all();
-        return ReservationsResource::collection($reservation);
+        //return ReservationsResource::collection($reservation);
+        return response()->json($reservation,200);
     }
 
     public function store(ReservationsRequest $request):JsonResponse

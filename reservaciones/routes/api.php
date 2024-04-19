@@ -33,12 +33,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/login',[AuthController::class, 'login']);
+Route::post('/register',[AuthController::class, 'register']);
+Route::post('/logout',[AuthController::class, 'logout']);
+Route::post('/user',[AuthController::class, 'user']);
 
 
 Route::get('/types',[TypesController::class, 'list']);
 Route::get('/types/{id}',[TypesController::class, 'getByid']);
 Route::post('/types/create', [typesController::class, 'create']);
 Route::post('/types/update', [typesController::class, 'update']);
+Route::delete('/types/delete/{id}', [TypesController::class, 'delete']);
 
 Route::get('/customers',[CustomersController::class, 'list']);
 Route::get('/customers/{id}',[CustomersController::class, 'getByid']);
@@ -50,7 +54,7 @@ Route::get('/pleaces/{id}',[TypesController::class, 'getByid']);
 Route::post('/pleaces/create',[PlacesController::class, 'create']);
 Route::post('/pleaces/update', [typesController::class, 'update']);
 
-
+Route::put('/update',[AuthController::class, 'update']);
 
 
 Route::resource('/reservations',ReservationsController::class);
